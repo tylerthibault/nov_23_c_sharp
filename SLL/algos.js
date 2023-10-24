@@ -107,7 +107,12 @@ class ListNode {
      * @param {any} data The data for the new node.
      * @returns {SinglyLinkedList} This list.
      */
-    insertAtFront(data) {}
+    insertAtFront(data) {
+      let temp = this.head
+      this.head = new ListNode(data);
+      this.head.next = temp
+      return this;
+  }
 
     /**
      * Removes the first node of this list.
@@ -115,7 +120,14 @@ class ListNode {
      * - Space: (?).
      * @returns {any} The data from the removed node.
      */
-    removeHead() {}
+    removeHead() {
+      if (this.isEmpty){
+          return null;
+      }
+      let temp = this.head
+      this.head = this.head.next
+      return temp.data;
+  }
 
     // EXTRA
     /**
@@ -124,7 +136,20 @@ class ListNode {
      * - Space: (?).
      * @returns {number|NaN} The average of the node's data.
      */
-    average() {}
+    average() {
+      if (this.isEmpty){
+          return null;
+      }
+      let count = 0 
+      let sum = 0
+      let runner = this.head
+      while(runner !== null){
+          count++
+          sum += runner.data
+          runner = runner.next
+      }
+      return sum/count;
+  }
 
     // ******************************************* END of Work
   
