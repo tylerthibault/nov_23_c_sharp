@@ -150,7 +150,7 @@ class ListNode {
       return sum/count;
   }
 
-    // ******************************************* Work Here
+    
 
     /**
      * Removes the last node of this list.
@@ -158,7 +158,28 @@ class ListNode {
      * - Space: O(?).
      * @returns {any} The data from the node that was removed.
      */
-    removeBack() {}
+    removeBack() {
+      if (this.isEmpty()) {
+          return null;
+      }
+
+      // Only 1 node.
+      if (this.head.next === null) {
+          return this.removeHead();
+      }
+
+      // More than 1 node.
+      let runner = this.head;
+
+      while (runner.next.next) {
+          runner = runner.next;
+      }
+
+      // after while loop finishes, runner is now at 2nd to last node
+      const removedData = runner.next.data;
+      runner.next = null; // remove it from list
+      return removedData;
+  }
 
     /**
      * Determines whether or not the given search value exists in this list.
@@ -167,7 +188,17 @@ class ListNode {
      * @param {any} val The data to search for in the nodes of this list.
      * @returns {boolean}
      */
-    contains(val) {}
+    contains(val) {
+      let runner = this.head;
+
+      while (runner) {
+          if (runner.data === val) {
+              return true;
+          }
+          runner = runner.next;
+      }
+      return false;
+  }
 
     /**
      * Determines whether or not the given search value exists in this list.
@@ -178,7 +209,15 @@ class ListNode {
      *    or null when the end of the list has been reached.
      * @returns {boolean}
      */
-    containsRecursive(val, current = this.head) {}
+    containsRecursive(val, current = this.head) {
+      if (current === null) {
+          return false;
+      }
+      if (current.data === val) {
+          return true;
+      }
+      return this.containsRecursive(val, current.next);
+  }
 
     // EXTRA
     /**
@@ -191,7 +230,54 @@ class ListNode {
      *    max integer as it's data.
      * @returns {?number} The max int or null if none.
      */
-    recursiveMax(runner = this.head, maxNode = this.head) {}
+    recursiveMax(runner = this.head, maxNode = this.head) {
+      if (this.head === null) {
+          return null;
+      }
+
+      if (runner === null) {
+          return maxNode.data;
+      }
+
+      if (runner.data > maxNode.data) {
+          maxNode = runner;
+      }
+
+      return this.recursiveMax(runner.next, maxNode);
+  }
+
+
+    // ******************************************* Work Here
+    /**
+     * Retrieves the data of the second to last node in this list.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {any} The data of the second to last node or null if there is no
+     *    second to last node.
+     */
+    secondToLast() {}
+
+    /**
+     * Removes the node that has the matching given val as it's data.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} val The value to compare to the node's data to find the
+     *    node to be removed.
+     * @returns {boolean} Indicates if a node was removed or not.
+     */
+    removeVal(val) {}
+
+    // EXTRA
+    /**
+     * Inserts a new node before a node that has the given value as its data.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} newVal The value to use for the new node that is being added.
+     * @param {any} targetVal The value to use to find the node that the newVal
+     *    should be inserted in front of.
+     * @returns {boolean} To indicate whether the node was pre-pended or not.
+     */
+    prepend(newVal, targetVal) {}
 
     // ******************************************* END of Work
   
