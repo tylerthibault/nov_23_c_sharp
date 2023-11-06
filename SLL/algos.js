@@ -339,8 +339,6 @@ class ListNode {
         }
     }
 
-    // ******************************************* Work Here
-
     /**
    * Concatenates the nodes of a given list onto the back of this list.
    * - Time: O(?).
@@ -349,7 +347,19 @@ class ListNode {
    *    whose nodes will be added to the back of this list.
    * @returns {SinglyLinkedList} This list with the added nodes.
    */
-  concat(addList) {}
+    concat(addList) {
+      let runner = this.head;
+
+      if (runner === null) {
+          this.head = addList.head;
+      } else {
+          while (runner.next) {
+              runner = runner.next;
+          }
+          runner.next = addList.head;
+      }
+      return this;
+  }
 
   /**
    * Finds the node with the smallest data and moves that node to the front of
@@ -358,7 +368,34 @@ class ListNode {
    * - Space: O(?).
    * @returns {SinglyLinkedList} This list.
    */
-  moveMinToFront() {}
+  moveMinToFront() {
+    if (this.isEmpty()) {
+        return this;
+    }
+
+    let minNode = this.head;
+    let runner = this.head;
+    let prev = this.head;
+
+    while (runner.next) {
+        if (runner.next.data < minNode.data) {
+            prev = runner;
+            minNode = runner.next;
+        }
+
+        runner = runner.next;
+    }
+
+    if (minNode === this.head) {
+        return this;
+    }
+
+    prev.next = minNode.next;
+    minNode.next = this.head;
+    this.head = minNode;
+    return this;
+}
+
 
   // EXTRA
   /**
@@ -372,7 +409,58 @@ class ListNode {
    * @returns {SinglyLinkedList} The split list containing the nodes that are
    *    no longer in this list.
    */
-  splitOnVal(val) {}
+  splitOnVal(val) {
+    const newList = new SinglyLinkedList();
+
+    if (!this.head) {
+        return newList;
+    }
+
+    if (this.head.data === val) {
+        newList.head = this.head;
+        this.head = null;
+        return newList;
+    }
+
+    let runner = this.head;
+
+    while (runner.next) {
+        if (runner.next.data === val) {
+            newList.head = runner.next;
+            runner.next = null;
+            return newList;
+        }
+        runner = runner.next;
+    }
+    return newList;
+}
+
+    // ******************************************* Work Here
+    /**
+     * Reverses this list in-place without using any extra lists.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list.
+     */
+    reverse() {}
+
+    /**
+     * Determines whether the list has a loop in it which would result in
+     * infinitely traversing unless otherwise avoided. A loop is when a node's
+     * next points to a node that is behind it.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {boolean} Whether the list has a loop or not.
+     */
+    hasLoop() {}
+
+    /**
+     * Removes all the nodes that have a negative integer as their data.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {SinglyLinkedList} This list after the negatives are removed.
+     */
+    removeNegatives() {}
 
     // ******************************************* END of Work
   
