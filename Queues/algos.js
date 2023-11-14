@@ -49,6 +49,12 @@ class Queue {
      * @returns {number} The length.
      */
     size() {}
+
+    print() {
+        const str = this.items.join(" ");
+        console.log(str);
+        return str;
+      }
   }
   
   /* Rebuild the above class using a linked list instead of an array. */

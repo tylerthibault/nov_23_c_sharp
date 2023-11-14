@@ -22,6 +22,8 @@ class Stack {
    * @returns {number} The new length of this stack.
    */
   push(item) {
+    this.items[this.items.length] = item; // Add the item to the end of the array.
+    return this.items.length;
   }
 
   /**
@@ -30,7 +32,9 @@ class Stack {
    * - Space: O(1) constant.
    * @returns {any} The removed item or undefined if this stack was empty.
    */
-  pop() { }
+  pop() {
+    return this.items.pop();
+  }
 
   /**
    * Retrieves the top / last item from this stack without removing it.
@@ -38,7 +42,9 @@ class Stack {
    * - Space: O(1) constant.
    * @returns {any} The top / last item of this stack.
    */
-  peek() { }
+  peek() {
+    return this.items[this.items.length - 1];
+  }
 
   /**
    * Returns whether or not this stack is empty.
@@ -46,7 +52,9 @@ class Stack {
    * - Space: O(1) constant.
    * @returns {boolean}
    */
-  isEmpty() { }
+  isEmpty() {
+    return this.items.length === 0;
+  }
 
   /**
    * Returns the size of this stack.
@@ -54,7 +62,15 @@ class Stack {
    * - Space: O(1) constant.
    * @returns {number} The length.
    */
-  size() { }
+  size() {
+    return this.items.length;
+  }
+
+  print() {
+    const str = this.items.join(" ");
+    console.log(str);
+    return str;
+  }
 }
 
 class StackNode {
