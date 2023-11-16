@@ -74,7 +74,21 @@ class Queue {
  * @returns {boolean} Whether all the items of the two queues are equal and
  *    in the same order.
  */
-  compareQueues(q2) { }
+  compareQueues(q2) {
+    let result = true;
+    if (q2.size() != this.size()) {
+      return false;
+    }
+    for (let i = 0; i < this.size(); i++) {
+      if (this.front() != q2.front()) {
+        result = false;
+      }
+      q2.enqueue(q2.dequeue());
+      this.enqueue(this.dequeue());
+    }
+    return result;
+  }
+
 
   /**
    * Determines if the queue is a palindrome (same items forward and backwards).
@@ -86,7 +100,38 @@ class Queue {
    * - Space: O(?).
    * @returns {boolean}
    */
-  isPalindrome() { }
+  isPalindrome() {
+    const stack = new Stack();
+    let result = true;
+    let temp;
+    for (let i = 0; i < this.size(); i++) {
+      temp = this.dequeue();
+      stack.push(temp);
+      this.enqueue(temp);
+    }
+    for (let i = 0; i < this.size(); i++) {
+      temp = this.dequeue();
+      if (stack.pop() != temp) {
+        result = false;
+      }
+      this.enqueue(temp);
+    }
+    return result;
+  }
+
+  /**
+ * Determines whether the sum of the left half of the queue items is equal to
+ * the sum of the right half. Avoid indexing the queue items directly via
+ * bracket notation, use the queue methods instead for practice.
+ * Use no extra array or objects.
+ * The queue should be returned to it's original order when done.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {boolean} Whether the sum of the left and right halves is equal.
+ */
+  isSumOfHalvesEqual() {
+
+  }
 
   print() {
     const str = this.items.join(" ");
@@ -95,4 +140,4 @@ class Queue {
   }
 }
 
-/* Rebuild the above class using a linked list instead of an array. */
+
